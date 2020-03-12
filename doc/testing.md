@@ -147,7 +147,7 @@ end
 <!--Rails YAML fixtures-->
 ```erb
 photo:
-  image_data: <%= TestData.image_data %>
+  image_data: <%= TestData.image_data %> ## Try converting to Json first if you have a parse error <%= TestData.image_data.to_json %>
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
