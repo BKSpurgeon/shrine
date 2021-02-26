@@ -29,6 +29,19 @@ describe Shrine::Plugins::Activerecord do
         @shrine.plugin :validation
       end
 
+      it "#avatar_was " do
+        @user.class.include @shrine::Attachment.new(:avatar)
+        @user.avatar = fakeio
+        @user.save
+
+        @attacher.class.validate { errors << [:error, param: :avatar] }
+        @user.save
+
+        assert_equal @attacher.load_data(@user.avatar_data_was), @user.avatar_was
+        refute @user.valid?
+      end
+
+
       it "adds attacher errors to the record" do
         @user.class.include @shrine::Attachment.new(:avatar)
 
